@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>आगरा खंड शिक्षक मतदाता पोर्टल</title>
+<meta name="description" content="आगरा खंड शिक्षक निर्वाचन क्षेत्र का मतदाता पर्ची और जिला डैशबोर्ड पोर्टल।">
+<style>
+:root{--orange:#e4600f;--green:#1b6b3a;--ink:#2b2118;--paper:#fff8f0;--line:#f0d9c4}
+*{box-sizing:border-box}
+body{margin:0;font-family:system-ui,"Noto Sans Devanagari","Mangal",sans-serif;background:var(--paper);color:var(--ink)}
+header{background:var(--orange);color:white;padding:18px 16px}
+header h1{font-size:clamp(1.15rem,4vw,1.8rem);margin:0;font-weight:800}
+header p{margin:5px 0 0;font-size:.92rem}
+nav{display:flex;gap:7px;padding:10px;background:#fff;border-bottom:2px solid var(--green);overflow-x:auto;position:sticky;top:0;z-index:5}
+nav button{flex:0 0 auto;border:1px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink);padding:10px 13px;font:inherit;font-weight:650;cursor:pointer}
+nav button.active{background:var(--green);border-color:var(--green);color:white}
+main{padding:12px;max-width:1500px;margin:auto}
+#hint{font-size:.9rem;color:#6b5a4a;margin:4px 2px 10px}
+.framewrap{background:white;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+iframe{display:block;width:100%;height:calc(100vh - 185px);min-height:600px;border:0;background:white}
+@media(max-width:600px){header{padding:14px}nav{padding:8px}nav button{padding:9px 11px;font-size:.88rem}main{padding:8px}iframe{height:calc(100vh - 190px);min-height:560px}}
+</style>
+</head>
+<body>
+<header><h1>आगरा खंड शिक्षक मतदाता पोर्टल</h1><p>नीचे दिए गए टैब से आवश्यक डैशबोर्ड खोलें</p></header>
+<nav id="tabs" aria-label="डैशबोर्ड टैब">
+<button class="active" data-file="voter-slip.html">मतदाता पर्ची</button>
+<button data-file="school-parchi-v4.html">विद्यालय पर्ची</button>
+<button data-file="voter-list-dashboard-v3.html">मतदाता सूची</button>
+<button data-file="school-vote-count-dashboard.html">वोट गिनती</button>
+<button data-file="dashboard-zip.html">जिला ZIP</button>
+<button data-file="etawah-dashboard.html">इटावा</button>
+<button data-file="gyan-sthali-dashboard.html">ज्ञान स्थली</button>
+<button data-file="sampark-parchi-dashboard-v10.html">संपर्क पर्ची / WhatsApp</button>
+</nav>
+<main>
+<p id="hint">मतदाता पर्ची डैशबोर्ड खुल रहा है।</p>
+<div class="framewrap"><iframe id="app" src="voter-slip.html" title="मतदाता पर्ची"></iframe></div>
+</main>
+<script>
+const labels={
+"voter-slip.html":"मतदाता पर्ची डैशबोर्ड।",
+"school-parchi-v4.html":"विद्यालय के नाम से पर्चियाँ खोजने और डाउनलोड करने का डैशबोर्ड।",
+"voter-list-dashboard-v3.html":"विद्यालय, ब्लॉक, बूथ और पता-वार मतदाता सूची का डैशबोर्ड।",
+"school-vote-count-dashboard.html":"विद्यालय-वार वोट गिनती और PDF/Excel डाउनलोड।",
+"dashboard-zip.html":"जिला चुनकर विद्यालय-वार पर्चियों की ZIP बनाएं।",
+"etawah-dashboard.html":"इटावा जिले की विद्यालय-वार पर्चियों की ZIP।",
+"gyan-sthali-dashboard.html":"ज्ञान स्थली की विद्यालय-वार पर्चियों की ZIP।",
+"sampark-parchi-dashboard-v10.html":"वोटर खोजें, मोबाइल नंबर सेव करें और WhatsApp पर पर्ची भेजें।"
+};
+const frame=document.getElementById("app");
+document.getElementById("tabs").addEventListener("click",e=>{
+ const btn=e.target.closest("button[data-file]"); if(!btn)return;
+ document.querySelectorAll("#tabs button").forEach(b=>b.classList.toggle("active",b===btn));
+ frame.src=btn.dataset.file; frame.title=btn.textContent.trim();
+ document.getElementById("hint").textContent=labels[btn.dataset.file]||"डैशबोर्ड खुल रहा है।";
+});
+</script>
+</body>
+</html>
